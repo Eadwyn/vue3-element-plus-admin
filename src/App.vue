@@ -2,6 +2,34 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from '@/components/HelloWorld.vue';
+
+import store from '@/store';
+
+const { userStore } = store();
+
+function printUserState() {
+  const openId = userStore.openId;
+  console.log('openId = ', openId);
+  userStore.getUser().then((data) => {
+    console.log(data);
+  });
+}
+
+function updateUserState() {
+  userStore.updateUser({
+    openId: 'ABC',
+    nickname: 'Tom',
+    avatar: 'Image_',
+  });
+}
+
+console.log('before update');
+printUserState();
+setTimeout(function () {
+  console.log('after update');
+  updateUserState();
+  printUserState();
+}, 3000);
 </script>
 
 <template>
