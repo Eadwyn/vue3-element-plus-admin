@@ -179,7 +179,60 @@ node_modules
 }
 ```
 
+# 4 路由别名配置
 
+使用 @ 代替 src，方便组件的import
+
+```powershell
+npm install @types/node --save-dev
+```
+
+- 修改 vite.config.ts
+
+```typescript
+// vite.config.ts
+
+...
+import path from 'path'
+
+export default defineConfig({
+    ...
+    resolve: {
+        alias: {
+            "@": path.resolve("./src") // 相对路径别名配置，使用 @ 代替 src
+        }
+    }
+})
+
+```
+
+- 修改 tsconfig.json
+
+```json
+// tsconfig.json
+
+{
+	...
+  "compilerOptions": {
+	...
+    "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
+    "paths": { //路径映射，相对于baseUrl
+      "@/*": ["src/*"] 
+    },
+    "allowSyntheticDefaultImports": true // 允许默认导入
+  }
+}
+
+```
+
+- 使用示例
+
+```typescript
+// App.vue
+import HelloWorld from '/src/components/HelloWorld.vue'
+						↓
+import HelloWorld from '@/components/HelloWorld.vue'
+```
 
 # END
 
