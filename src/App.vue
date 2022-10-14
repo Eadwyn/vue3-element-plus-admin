@@ -15,6 +15,18 @@ import HelloWorld from '@/components/HelloWorld.vue';
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" />
+  <div>
+    <p>
+      <RouterLink to="/login">登录 </RouterLink>
+      <RouterLink to="/">首页 </RouterLink>
+      <RouterLink to="/dashboard">dashboard </RouterLink>
+      <RouterLink to="/401">401 </RouterLink>
+      <RouterLink to="/403">403 </RouterLink>
+      <RouterLink to="/404">404 </RouterLink>
+      <RouterLink to="/500">500 </RouterLink>
+    </p>
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>

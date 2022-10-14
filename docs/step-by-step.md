@@ -451,6 +451,142 @@ app.use(i18n)
 </template>
 ```
 
+# 7 路由router
+
+> 官网：https://router.vuejs.org/zh/api/
+
+安装
+
+```powershell
+npm install vue-router
+```
+
+新建路由实例
+
+```typescript
+// /src/router/index.ts
+
+import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router';
+
+export const constantRoutes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/view/dashboard/index.vue'),
+        meta: { affix: true },
+      },
+    ],
+  },
+  {
+    path: '/login',
+    component: () => import('@/view/login/index.vue'),
+    meta: { hidden: true },
+  },
+  {
+    path: '/dashboard',
+    component: () => import('@/view/dashboard/index.vue'),
+    meta: { hidden: true },
+  },
+  {
+    path: '/401',
+    component: () => import('@/view/error/401.vue'),
+    meta: { hidden: true },
+  },
+  {
+    path: '/403',
+    component: () => import('@/view/error/403.vue'),
+    meta: { hidden: true },
+  },
+  {
+    path: '/404',
+    component: () => import('@/view/error/404.vue'),
+    meta: { hidden: true },
+  },
+  {
+    path: '/500',
+    component: () => import('@/view/error/500.vue'),
+    meta: { hidden: true },
+  },
+];
+
+const router = createRouter({
+  routes: constantRoutes as RouteRecordRaw[],
+  history: createWebHashHistory(),
+  scrollBehavior: () => ({ left: 0, top: 0 }), // 刷新时，还原滚动条位置
+});
+
+export default router;
+```
+
+全局注册
+
+```typescript
+// /src/main.ts
+...
+import router from "@/router";
+
+app.use(router)
+   .mount('#app')
+```
+
+新建测试页面
+
+- 登录页
+
+```vue
+// /src/view/login/index.ts
+
+<template>
+  <h1>This is LOGIN page</h1>
+</template>
+```
+
+- Dashboard页
+
+```vue
+// /src/view/dashboard/index.ts
+
+<template>
+  <h1>This is DASHBOARD page</h1>
+</template>
+```
+
+- 401
+
+```vue
+// /src/view/error/401.ts
+
+<template>
+  <h1>This is 401 page</h1>
+</template>
+```
+
+示例
+
+```vue
+// /src/App.vue
+
+...
+<template>
+  ...
+  <div>
+    <p>
+      <RouterLink to="/login">登录 </RouterLink>
+      <RouterLink to="/">首页 </RouterLink>
+      <RouterLink to="/dashboard">dashboard </RouterLink>
+      <RouterLink to="/401">401 </RouterLink>
+      <RouterLink to="/403">403 </RouterLink>
+      <RouterLink to="/404">404 </RouterLink>
+      <RouterLink to="/500">500 </RouterLink>
+    </p>
+    <RouterView />
+  </div>
+</template>
+```
+
 
 
 # END
