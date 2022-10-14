@@ -336,6 +336,121 @@ const SessionStorageUtil = {
 export default SessionStorageUtil;
 ```
 
+# 6 国际化i18n
+
+安装
+
+```powershell
+npm install vue-i18n
+```
+
+新建语言文件 zh-CN.ts
+
+```typescript
+// /src/lang/zh-CN.ts
+
+export default {
+  // 全局
+  global: {
+    appName: 'vue3-element-plus-admin',
+    versionTitle: '版本号',
+    copyright: '深圳市XXX有限公司',
+  },
+};
+```
+
+新建语言文件 en-US.ts
+
+```typescript
+// /src/lang/en-US.ts
+
+export default {
+  // 全局
+  global: {
+    appName: 'vue3-element-plus-admin',
+    versionTitle: 'version',
+    copyright: 'Shenzhen XXX Ltd.',
+  },
+};
+```
+
+创建i18n实例
+
+```typescript
+// /src/lang/index.ts
+
+import { createI18n } from 'vue-i18n';
+import LocalStorageUtil from '@/util/LocalStorageUtil';
+
+import zhCN from './zh-CN';
+import enUS from './en-US';
+
+const messages = {
+  'zh-CN': {
+    ...zhCN,
+  },
+  'en-US': {
+    ...enUS,
+  },
+};
+
+/**
+ * 获取用户语言设置
+ *
+ * @returns 如果LocalStorage有保存语言设置，则返回；
+ * 否则尝试返回浏览器使用语言设置；
+ * 若尝试失败，则返回简体中文
+ */
+export const getLanguage = () => {
+  LocalStorageUtil.get('language');
+  let language = LocalStorageUtil.get('language');
+  if (language) {
+    return language;
+  }
+
+  // 浏览器使用语言
+  language = navigator.language.toLowerCase();
+  const locales = Object.keys(messages);
+  for (const locale of locales) {
+    if (language.indexOf(locale) > -1) {
+      return locale;
+    }
+  }
+
+  return 'zh-CN';
+};
+
+const i18n = createI18n({
+  locale: getLanguage(),
+  fallbackLocale: 'zh-CN',
+  messages: messages,
+});
+
+export default i18n;
+```
+
+i18n全局注册
+
+```typescript
+import i18n from "@/lang/index";
+
+app.use(i18n)
+   .mount('#app');
+```
+
+示例
+
+```vue
+// /src/App.vue
+
+...
+
+<template>
+  <h3 class="title">{{ $t('global.copyright') }}</h3>
+  ...
+</template>
+```
+
 
 
 # END
