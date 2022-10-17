@@ -2,6 +2,7 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from '@/components/HelloWorld.vue';
+import SvgIcon from '@/components/svgIcon/index.vue';
 
 import store from '@/store';
 
@@ -55,6 +56,8 @@ setTimeout(function () {
     </p>
     <RouterView />
   </div>
+
+  <SvgIcon name="menu" color="#FF0000"></SvgIcon>
 </template>
 
 <style scoped>
