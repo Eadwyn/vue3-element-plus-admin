@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from '@/components/HelloWorld.vue';
 import SvgIcon from '@/components/svgIcon/index.vue';
+import { Edit } from '@element-plus/icons-vue';
 
 import store from '@/store';
 
@@ -58,6 +59,7 @@ setTimeout(function () {
   </div>
 
   <SvgIcon name="menu" color="#FF0000"></SvgIcon>
+  <el-button type="primary" :icon="Edit" circle></el-button>
 </template>
 
 <style scoped>

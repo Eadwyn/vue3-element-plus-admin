@@ -771,6 +771,64 @@ import SvgIcon from '@/components/svgIcon/index.vue';
 </template>
 ```
 
+# 10 集成Element-plus
+
+> 官方：https://element-plus.gitee.io
+
+安装
+
+```powershell
+npm install element-plus
+```
+
+全局注册
+
+```typescript
+// /src/main.ts
+
+...
+import ElementPlus from 'element-plus'
+import 'element-plus/theme-chalk/index.css'
+
+createApp(App)
+    ...
+    .use(ElementPlus)
+    .mount('#app')
+
+```
+
+全局组件类型声明
+
+```json
+// /src/tsconfig.json
+
+{
+  ...
+  "compilerOptions": {
+    ...
+    "types": ["element-plus/global", ...]
+  }
+}
+
+```
+
+示例
+
+```vue
+<script setup lang="ts">
+...
+import { Edit } from '@element-plus/icons-vue'
+...
+</script>
+
+
+<template>
+...
+  <el-button type="primary" :icon="Edit" circle></el-button>
+</template>
+
+```
+
 
 
 # END
