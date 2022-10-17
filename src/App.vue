@@ -4,6 +4,7 @@
 import HelloWorld from '@/components/HelloWorld.vue';
 import SvgIcon from '@/components/svgIcon/index.vue';
 import { Edit } from '@element-plus/icons-vue';
+import request from '@/util/request';
 
 import store from '@/store';
 
@@ -32,6 +33,27 @@ setTimeout(function () {
   updateUserState();
   printUserState();
 }, 3000);
+
+function testPost() {
+  request({
+    url: '/login',
+    params: {
+      username: 'Smith',
+      password: 'pwd',
+    },
+  }).then((data) => {
+    console.log(data);
+  });
+}
+function testGet() {
+  request({
+    url: '/users/get',
+    method: 'get',
+    params: {},
+  }).then((data) => {
+    console.log(data);
+  });
+}
 </script>
 
 <template>
@@ -60,6 +82,8 @@ setTimeout(function () {
 
   <SvgIcon name="menu" color="#FF0000"></SvgIcon>
   <el-button type="primary" :icon="Edit" circle></el-button>
+  <button @click="testPost">Test Post</button>
+  <button @click="testGet">Test Get</button>
 </template>
 
 <style scoped>
